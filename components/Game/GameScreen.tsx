@@ -1,0 +1,261 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+import { Board } from "@/components/Board/Board";
+import { GameOverModal } from "@/components/UI/GameOverModal";
+import { HUD } from "@/components/UI/HUD";
+import { CartState, Direction, GameStatus, ScorePopup, Stage } from "@/types/game";
+import { GameManager } from "./GameManager";
+import { StageManager } from "./StageManager";
+
+type GameScreenProps = {
+  onBackHome: () => void;
+  onOpenTutorial: () => void;
+  onOpenSettings: () => void;
+};
+
+const CART_STEP_MS = 1500;
+const SCORE_POPUP_MS = 920;
+const BONUS_PULSE_MS = 760;
+
+type MoveResult = Extract<ReturnType<typeof GameManager.advanceCart>, { type: "move" }>;
+
+export function GameScreen({
+  onBackHome,
+  onOpenTutorial,
+  onOpenSettings,
+}: GameScreenProps) {
+  const [stage, setStage] = useState<Stage>(() => StageManager.createInitialStage());
+  const [cart, setCart] = useState<CartState>(() => stage.start);
+  const [status, setStatus] = useState<GameStatus>("ready");
+  const [remainingTime, setRemainingTime] = useState(stage.timeLimit);
+  const [score, setScore] = useState(0);
+  const [scorePopups, setScorePopups] = useState<ScorePopup[]>([]);
+  const [activeBonusTileIds, setActiveBonusTileIds] = useState<string[]>([]);
+
+  const stageRef = useRef(stage);
+  const cartRef = useRef(cart);
+  const statusRef = useRef(status);
+
+  useEffect(() => {
+    stageRef.current = stage;
+  }, [stage]);
+
+  useEffect(() => {
+    cartRef.current = cart;
+  }, [cart]);
+
+  useEffect(() => {
+    statusRef.current = status;
+  }, [status]);
+
+  function setNextStatus(nextStatus: GameStatus) {
+    statusRef.current = nextStatus;
+    setStatus(nextStatus);
+  }
+
+  function updateStage(updater: (currentStage: Stage) => Stage) {
+    setStage((currentStage) => {
+      const nextStage = updater(currentStage);
+      stageRef.current = nextStage;
+      return nextStage;
+    });
+  }
+
+  function resetGame() {
+    const nextStage = StageManager.resetStage();
+
+    stageRef.current = nextStage;
+    cartRef.current = nextStage.start;
+    statusRef.current = "ready";
+
+    setStage(nextStage);
+    setCart(nextStage.start);
+    setNextStatus("ready");
+    setRemainingTime(nextStage.timeLimit);
+    setScore(0);
+    setScorePopups([]);
+    setActiveBonusTileIds([]);
+  }
+
+  function startGame() {
+    if (statusRef.current !== "ready") {
+      return;
+    }
+
+    setNextStatus("running");
+  }
+
+  function handleRotateTile(index: number) {
+    if (statusRef.current === "gameOver" || statusRef.current === "cleared") {
+      return;
+    }
+
+    const cartIndex = GameManager.positionToIndex(
+      cartRef.current.position,
+      stageRef.current.size
+    );
+
+    if (statusRef.current === "running" && index === cartIndex) {
+      return;
+    }
+
+    updateStage((currentStage) => ({
+      ...currentStage,
+      tiles: GameManager.rotateTile(currentStage.tiles, index),
+    }));
+  }
+
+  function handleSlideTile(index: number, direction: Direction) {
+    if (statusRef.current === "gameOver" || statusRef.current === "cleared") {
+      return;
+    }
+
+    const currentStage = stageRef.current;
+    const cartIndex = GameManager.positionToIndex(cartRef.current.position, currentStage.size);
+
+    if (index === cartIndex) {
+      return;
+    }
+
+    updateStage((stageToUpdate) => {
+      const result = GameManager.slideTile(
+        stageToUpdate.tiles,
+        index,
+        direction,
+        stageToUpdate.size
+      );
+
+      return result.moved ? { ...stageToUpdate, tiles: result.tiles } : stageToUpdate;
+    });
+  }
+
+  function addScorePopup(result: MoveResult) {
+    if (result.score.total <= 0) {
+      return;
+    }
+
+    const popup: ScorePopup = {
+      id: `${result.passedTile.id}-${Date.now()}`,
+      position: GameManager.indexToPosition(result.passedIndex, stageRef.current.size),
+      total: result.score.total,
+      bonus: result.score.bonus,
+    };
+
+    setScorePopups((current) => [...current, popup]);
+    window.setTimeout(() => {
+      setScorePopups((current) => current.filter((item) => item.id !== popup.id));
+    }, SCORE_POPUP_MS);
+
+    if (result.score.bonus > 0) {
+      setActiveBonusTileIds((current) => [...new Set([...current, result.passedTile.id])]);
+      window.setTimeout(() => {
+        setActiveBonusTileIds((current) =>
+          current.filter((tileId) => tileId !== result.passedTile.id)
+        );
+      }, BONUS_PULSE_MS);
+    }
+  }
+
+  useEffect(() => {
+    if (status !== "running") {
+      return;
+    }
+
+    const timer = window.setInterval(() => {
+      setRemainingTime((current) => {
+        if (current <= 1) {
+          const startledCart = { ...cartRef.current, mood: "startled" as const };
+          cartRef.current = startledCart;
+          setCart(startledCart);
+          setNextStatus("gameOver");
+          return 0;
+        }
+
+        return current - 1;
+      });
+    }, 1000);
+
+    return () => window.clearInterval(timer);
+  }, [status]);
+
+  useEffect(() => {
+    if (status !== "running") {
+      return;
+    }
+
+    const ticker = window.setInterval(() => {
+      if (statusRef.current !== "running") {
+        return;
+      }
+
+      const result = GameManager.advanceCart(stageRef.current, cartRef.current);
+
+      if (result.type === "fail") {
+        const startledCart = { ...cartRef.current, mood: "startled" as const };
+        cartRef.current = startledCart;
+        setCart(startledCart);
+        setNextStatus("gameOver");
+        return;
+      }
+
+      cartRef.current = result.cart;
+      setCart(result.cart);
+      setScore((currentScore) => currentScore + result.score.total);
+      addScorePopup(result);
+
+      if (result.reachedGoal) {
+        setNextStatus("cleared");
+      }
+    }, CART_STEP_MS);
+
+    return () => window.clearInterval(ticker);
+  }, [status]);
+
+  return (
+    <section className="gameScreen">
+      <HUD
+        onOpenSettings={onOpenSettings}
+        onOpenTutorial={onOpenTutorial}
+        onStart={startGame}
+        remainingTime={remainingTime}
+        score={score}
+        stage={stage}
+        status={status}
+      />
+
+      <div className="stageWorld">
+        <div className="planetBackdrop" aria-hidden="true">
+          <span className="planetRock rockOne" />
+          <span className="planetRock rockTwo" />
+          <span className="planetRock rockThree" />
+          <span className="planetTree treeOne" />
+          <span className="planetTree treeTwo" />
+          <span className="planetTree treeThree" />
+        </div>
+        <Board
+          activeBonusTileIds={activeBonusTileIds}
+          cart={cart}
+          disabled={status === "gameOver" || status === "cleared"}
+          onRotateTile={handleRotateTile}
+          onSlideTile={handleSlideTile}
+          scorePopups={scorePopups}
+          stage={stage}
+        />
+      </div>
+
+      <div className="stageFooter">
+        <button className="ghostButton" onClick={onBackHome} type="button">
+          ホーム
+        </button>
+        <button className="ghostButton" onClick={resetGame} type="button">
+          リトライ
+        </button>
+      </div>
+
+      {status === "gameOver" || status === "cleared" ? (
+        <GameOverModal onRetry={resetGame} score={score} status={status} />
+      ) : null}
+    </section>
+  );
+}
