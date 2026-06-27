@@ -23,7 +23,10 @@ export function TurnTable({ tile, activeBonus }: TurnTableProps) {
         } as CSSProperties
       }
     >
+      <span className="turnTableOuterRing" />
       <span className="turnTableRim" />
+      <span className="turnTableInnerRing" />
+      <span className="turnTableCenter" />
       <span className="turnTablePin pinTop" />
       <span className="turnTablePin pinRight" />
       <span className="turnTablePin pinBottom" />

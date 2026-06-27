@@ -63,6 +63,8 @@ export function Tile({
             .filter(Boolean)
             .join(" ")}
         >
+          <span className="tileWoodGrain" />
+          <span className="tileEdgeDepth" />
           {tile.goal ? (
             <>
               <GoalParticles />

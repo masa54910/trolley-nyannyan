@@ -3680,3 +3680,572 @@ button:disabled {
     position: relative;
   }
 }
+
+/* Design Spec v1.0: diorama toy-board finish. */
+.trolleyApp {
+  background:
+    radial-gradient(circle at 14% 10%, rgba(255, 246, 196, 0.16), transparent 18%),
+    radial-gradient(circle at 74% 38%, rgba(86, 160, 228, 0.18), transparent 34%),
+    linear-gradient(180deg, #030812 0%, #071625 55%, #020711 100%);
+}
+
+.homeScreen::before,
+.gameScreen::before {
+  background:
+    radial-gradient(circle at 10% 0%, rgba(255, 245, 196, 0.2), transparent 30%),
+    linear-gradient(118deg, rgba(255, 255, 255, 0.08), transparent 32%);
+}
+
+.miniBrand {
+  gap: 12px;
+}
+
+.miniBrand strong {
+  color: #ffc755;
+  font-size: 1.26rem;
+  text-shadow:
+    0 2px 0 rgba(89, 47, 15, 0.95),
+    0 6px 16px rgba(0, 0, 0, 0.42),
+    0 0 18px rgba(255, 190, 68, 0.38);
+}
+
+.miniCatIcon {
+  width: 48px;
+  height: 44px;
+}
+
+.homeHero {
+  grid-template-columns: minmax(410px, 0.58fr) minmax(850px, 1.42fr);
+  padding: 92px 32px 118px;
+}
+
+.homeCopy {
+  max-width: 600px;
+}
+
+.homeEyebrow {
+  border-color: rgba(255, 229, 164, 0.42);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.06)),
+    rgba(19, 31, 41, 0.56);
+}
+
+.homeHeadline {
+  font-size: clamp(3.05rem, 4.9vw, 5.1rem);
+  filter: drop-shadow(0 3px 0 rgba(95, 50, 17, 0.9));
+}
+
+.homeDescription {
+  max-width: 550px;
+  color: rgba(255, 242, 213, 0.96);
+}
+
+.homePrimaryButton {
+  min-width: min(41vw, 470px);
+  min-height: 86px;
+  border: 1px solid rgba(255, 245, 183, 0.56);
+  background:
+    radial-gradient(circle at 28% 18%, rgba(255, 255, 255, 0.62), transparent 20%),
+    linear-gradient(180deg, #fff58a 0%, #ffc934 44%, #ed951c 100%);
+  box-shadow:
+    inset 0 4px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -8px 18px rgba(139, 74, 13, 0.18),
+    0 10px 0 #9c5717,
+    0 28px 54px rgba(0, 0, 0, 0.48),
+    0 0 58px rgba(255, 197, 48, 0.32);
+}
+
+.homePlanet {
+  width: min(74vw, 1080px);
+  height: min(74vw, 1080px);
+  margin-right: -150px;
+  margin-top: 0;
+  background:
+    radial-gradient(circle at 30% 11%, rgba(255, 255, 231, 0.82), transparent 10%),
+    radial-gradient(circle at 25% 76%, rgba(112, 173, 76, 0.72) 0 8%, transparent 9%),
+    radial-gradient(circle at 75% 25%, rgba(111, 164, 82, 0.72) 0 11%, transparent 12%),
+    radial-gradient(circle at 44% 33%, #c69b5e 0 29%, #7a532f 51%, #355b2c 72%, #102416 100%);
+  box-shadow:
+    inset -130px -170px 210px rgba(0, 0, 0, 0.76),
+    inset 38px 42px 88px rgba(255, 248, 199, 0.3),
+    inset 0 0 0 4px rgba(255, 236, 178, 0.1),
+    0 64px 136px rgba(0, 0, 0, 0.76),
+    0 0 130px rgba(64, 151, 225, 0.28);
+}
+
+.homePlanet::before {
+  background:
+    radial-gradient(circle at 70% 18%, rgba(116, 178, 86, 0.72) 0 9%, transparent 10%),
+    radial-gradient(circle at 18% 74%, rgba(128, 188, 92, 0.78) 0 10%, transparent 11%),
+    radial-gradient(circle at 82% 70%, rgba(104, 100, 84, 0.72) 0 6%, transparent 7%),
+    radial-gradient(circle at 52% 18%, rgba(85, 69, 48, 0.35) 0 3%, transparent 4%),
+    radial-gradient(circle at 63% 61%, rgba(68, 53, 37, 0.4) 0 4%, transparent 5%),
+    linear-gradient(108deg, transparent 0 34%, rgba(255, 238, 167, 0.13) 38% 44%, transparent 48% 100%);
+}
+
+.homePlanet::after {
+  background:
+    radial-gradient(circle at 35% 24%, rgba(255, 255, 255, 0.16), transparent 16%),
+    radial-gradient(circle at 50% 50%, transparent 46%, rgba(8, 10, 10, 0.3) 66%, rgba(0, 5, 8, 0.86) 100%),
+    linear-gradient(124deg, rgba(255, 255, 255, 0.13), transparent 33%);
+}
+
+.planetRim {
+  border-color: rgba(255, 236, 180, 0.34);
+  box-shadow:
+    inset -28px -32px 50px rgba(0, 0, 0, 0.28),
+    inset 16px 18px 32px rgba(255, 248, 210, 0.16),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+.planetGlow {
+  box-shadow:
+    0 0 100px rgba(88, 170, 236, 0.38),
+    0 0 240px rgba(16, 68, 111, 0.34),
+    0 42px 80px rgba(0, 0, 0, 0.36);
+}
+
+.homePreviewBoard {
+  left: 12.8%;
+  top: 18%;
+  grid-template-columns: repeat(5, minmax(78px, 104px));
+  gap: clamp(8px, 0.82vw, 13px);
+  transform: perspective(1150px) rotateX(19deg) rotateZ(-7deg) translateY(-8px);
+}
+
+.previewTile {
+  width: clamp(78px, 6.4vw, 104px);
+  height: clamp(78px, 6.4vw, 104px);
+}
+
+.previewTurntable {
+  inset: 8%;
+  border-width: 3px;
+}
+
+.homeCart {
+  width: clamp(118px, 9vw, 152px);
+  height: clamp(112px, 8.8vw, 146px);
+  left: 49%;
+  top: 18%;
+}
+
+.homeGuideGrid {
+  bottom: 14px;
+}
+
+.guideCard {
+  min-height: 102px;
+  border-color: rgba(255, 224, 154, 0.34);
+  background:
+    radial-gradient(circle at 12% 8%, rgba(255, 255, 255, 0.16), transparent 26%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04)),
+    rgba(10, 20, 28, 0.78);
+}
+
+.hud {
+  padding: 18px 34px 0;
+}
+
+.stagePlate,
+.hudMetrics {
+  color: #fff8e7;
+  background:
+    radial-gradient(circle at 20% 0%, rgba(255, 255, 255, 0.13), transparent 34%),
+    linear-gradient(180deg, rgba(43, 38, 31, 0.88), rgba(15, 18, 20, 0.78));
+  border: 1px solid rgba(247, 198, 94, 0.48);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    inset 0 -14px 22px rgba(0, 0, 0, 0.22),
+    0 18px 44px rgba(0, 0, 0, 0.38),
+    0 0 28px rgba(255, 199, 86, 0.08);
+}
+
+.stageLabel,
+.hudMetric small {
+  color: #ffd269;
+}
+
+.gameScreen {
+  background:
+    radial-gradient(circle at 14% 7%, rgba(255, 246, 196, 0.15), transparent 24%),
+    radial-gradient(circle at 50% 45%, rgba(86, 157, 225, 0.25), transparent 34%),
+    linear-gradient(180deg, #030914 0%, #071827 58%, #050f19 100%);
+}
+
+.stageWorld {
+  height: calc(100vh - 92px);
+  padding: 0 28px 8px;
+}
+
+.planetBackdrop {
+  width: min(90vw, calc(100vh + 54px), 890px);
+  height: min(90vw, calc(100vh + 54px), 890px);
+  transform: translateY(22px) scale(1.08);
+  background:
+    radial-gradient(circle at 31% 12%, rgba(255, 250, 204, 0.58), transparent 13%),
+    radial-gradient(circle at 20% 76%, rgba(102, 159, 74, 0.62) 0 9%, transparent 10%),
+    radial-gradient(circle at 71% 22%, rgba(100, 152, 78, 0.62) 0 9%, transparent 10%),
+    radial-gradient(circle at 44% 35%, #aa8152 0 31%, #6a482a 53%, #365c2d 74%, #102214 100%);
+  box-shadow:
+    inset -126px -162px 198px rgba(0, 0, 0, 0.75),
+    inset 34px 36px 78px rgba(255, 245, 184, 0.23),
+    0 64px 132px rgba(0, 0, 0, 0.68),
+    0 0 104px rgba(66, 151, 226, 0.25);
+}
+
+.planetBackdrop::before {
+  background:
+    radial-gradient(circle at 23% 24%, rgba(96, 150, 73, 0.66) 0 9%, transparent 10%),
+    radial-gradient(circle at 72% 18%, rgba(111, 166, 86, 0.66) 0 8%, transparent 9%),
+    radial-gradient(circle at 78% 70%, rgba(68, 71, 55, 0.56) 0 6%, transparent 7%),
+    radial-gradient(circle at 37% 67%, rgba(57, 46, 32, 0.36) 0 4%, transparent 5%),
+    linear-gradient(120deg, transparent 0 40%, rgba(255, 231, 164, 0.11) 43% 47%, transparent 51% 100%);
+}
+
+.planetBackdrop::after {
+  background:
+    radial-gradient(circle at 36% 22%, rgba(255, 255, 255, 0.13), transparent 17%),
+    radial-gradient(circle at 50% 50%, transparent 52%, rgba(0, 8, 12, 0.44) 79%, rgba(0, 5, 9, 0.82) 100%);
+}
+
+.cameraViewport {
+  width: min(78vw, calc(100vh - 132px), 690px);
+}
+
+.boardShell {
+  width: min(76vw, calc(100vh - 150px), 680px);
+  padding: 8px;
+  border-radius: 26px;
+  background:
+    radial-gradient(circle at 50% 100%, rgba(83, 50, 27, 0.94), rgba(35, 24, 15, 0.72) 56%, transparent 74%),
+    linear-gradient(145deg, rgba(159, 111, 55, 0.5), rgba(67, 43, 25, 0.28));
+  box-shadow:
+    0 44px 70px rgba(0, 0, 0, 0.52),
+    0 0 0 1px rgba(255, 226, 168, 0.2),
+    0 0 54px rgba(72, 137, 91, 0.17);
+  transform: perspective(1300px) rotateX(5deg) translateY(6px);
+}
+
+.boardGrid {
+  gap: 3px;
+  padding: 4px;
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at 25% 15%, rgba(255, 232, 174, 0.13), transparent 22%),
+    rgba(69, 45, 25, 0.62);
+  box-shadow:
+    inset 0 0 26px rgba(0, 0, 0, 0.42),
+    inset 0 1px 0 rgba(255, 238, 190, 0.16);
+}
+
+.tileButton {
+  overflow: visible;
+}
+
+.tileBase {
+  overflow: visible;
+  border: 1px solid rgba(255, 235, 180, 0.44);
+  background-blend-mode: overlay, normal;
+  box-shadow:
+    inset 0 3px 0 rgba(255, 255, 255, 0.35),
+    inset 0 -14px 17px rgba(0, 0, 0, 0.24),
+    0 9px 0 rgba(65, 38, 18, 0.88),
+    0 15px 18px rgba(0, 0, 0, 0.32);
+}
+
+.tileBaseblue {
+  background:
+    repeating-linear-gradient(12deg, rgba(255, 255, 255, 0.1) 0 2px, transparent 2px 8px),
+    linear-gradient(145deg, #63b5f6, #2675bc 76%);
+}
+
+.tileBasegreen {
+  background:
+    repeating-linear-gradient(12deg, rgba(255, 255, 255, 0.09) 0 2px, transparent 2px 8px),
+    linear-gradient(145deg, #91df84, #4b9c50 76%);
+}
+
+.tileBaseyellow {
+  background:
+    repeating-linear-gradient(12deg, rgba(255, 255, 255, 0.12) 0 2px, transparent 2px 8px),
+    linear-gradient(145deg, #ffe369, #dba01f 78%);
+}
+
+.tileBaserose {
+  background:
+    repeating-linear-gradient(12deg, rgba(255, 255, 255, 0.1) 0 2px, transparent 2px 8px),
+    linear-gradient(145deg, #ef91a6, #b64f68 78%);
+}
+
+.tileWoodGrain,
+.tileEdgeDepth {
+  position: absolute;
+  display: block;
+  pointer-events: none;
+}
+
+.tileWoodGrain {
+  inset: 5px;
+  z-index: 1;
+  border-radius: calc(var(--tile-radius) - 2px);
+  background:
+    linear-gradient(115deg, rgba(255, 255, 255, 0.2), transparent 26%),
+    repeating-linear-gradient(18deg, rgba(83, 49, 22, 0.12) 0 1px, transparent 1px 8px);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 246, 204, 0.12),
+    inset 0 -9px 13px rgba(0, 0, 0, 0.1);
+}
+
+.tileEdgeDepth {
+  left: 5px;
+  right: 5px;
+  bottom: -10px;
+  z-index: 0;
+  height: 18px;
+  border-radius: 0 0 10px 10px;
+  background:
+    linear-gradient(180deg, rgba(111, 67, 29, 0.74), rgba(49, 30, 16, 0.92)),
+    repeating-linear-gradient(90deg, rgba(255, 223, 151, 0.08) 0 2px, transparent 2px 8px);
+  box-shadow: 0 7px 12px rgba(0, 0, 0, 0.28);
+}
+
+.turnTable {
+  inset: 8%;
+  z-index: 5;
+  overflow: visible;
+  border: 0;
+  background:
+    radial-gradient(circle at 34% 24%, rgba(255, 255, 255, 0.48), transparent 15%),
+    radial-gradient(circle at 50% 52%, rgba(255, 255, 255, 0.16), rgba(0, 0, 0, 0.06) 64%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.24), rgba(37, 28, 20, 0.12));
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.38),
+    inset -9px -14px 18px rgba(0, 0, 0, 0.2),
+    0 5px 0 rgba(63, 39, 20, 0.42),
+    0 10px 14px rgba(0, 0, 0, 0.25);
+}
+
+.turnTableOuterRing,
+.turnTableInnerRing,
+.turnTableCenter {
+  position: absolute;
+  z-index: 2;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.turnTableOuterRing {
+  inset: 0;
+  border: 3px solid rgba(255, 245, 209, 0.78);
+  box-shadow:
+    inset 0 0 0 2px rgba(83, 53, 28, 0.18),
+    0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+.turnTableRim {
+  inset: 14%;
+  z-index: 2;
+  border: 2px solid rgba(255, 245, 208, 0.62);
+  box-shadow:
+    inset 0 0 0 1px rgba(75, 51, 27, 0.25),
+    0 1px 0 rgba(255, 255, 255, 0.24);
+}
+
+.turnTableInnerRing {
+  inset: 33%;
+  border: 1px solid rgba(255, 252, 222, 0.42);
+  box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.12);
+}
+
+.turnTableCenter {
+  left: calc(50% - 5px);
+  top: calc(50% - 5px);
+  width: 10px;
+  height: 10px;
+  background: radial-gradient(circle at 30% 25%, #fff8dc, #9b8f78 58%, #3b3b38);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.34);
+}
+
+.turnTablePin {
+  z-index: 8;
+  width: 9px;
+  height: 9px;
+  background:
+    radial-gradient(circle at 30% 24%, #fff9dc, #c3b995 32%, #6d706d 60%, #252827 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.48),
+    0 2px 4px rgba(0, 0, 0, 0.38);
+}
+
+.pinTop {
+  top: 8px;
+}
+
+.pinRight {
+  right: 8px;
+}
+
+.pinBottom {
+  bottom: 8px;
+}
+
+.pinLeft {
+  left: 8px;
+}
+
+.railSvg {
+  inset: -7%;
+  z-index: 6;
+  filter: drop-shadow(0 4px 3px rgba(0, 0, 0, 0.34));
+}
+
+.railBedShadow,
+.railBed,
+.railMetalOuter,
+.railMetalInner,
+.railMetalHighlight {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.railBedShadow {
+  stroke: rgba(32, 19, 11, 0.5);
+  stroke-width: 26;
+  transform: translateY(3px);
+}
+
+.railBed {
+  stroke: #5a3820;
+  stroke-width: 22;
+}
+
+.railMetalOuter {
+  stroke: #22272d;
+  stroke-width: 9.5;
+}
+
+.railMetalInner {
+  stroke: #bfc7c9;
+  stroke-width: 6.5;
+}
+
+.railMetalHighlight {
+  stroke: rgba(255, 255, 255, 0.82);
+  stroke-width: 2.2;
+  stroke-dasharray: 18 18;
+  stroke-dashoffset: 4;
+}
+
+.railSleeper,
+.curveSleeper {
+  position: relative;
+  z-index: 4;
+  stroke: #3d2818;
+  stroke-width: 5;
+  fill: #6c3f1e;
+  filter:
+    drop-shadow(0 2px 1px rgba(0, 0, 0, 0.45))
+    drop-shadow(0 -1px 0 rgba(255, 214, 139, 0.24));
+}
+
+.emptyWell {
+  border: 1px solid rgba(255, 228, 170, 0.13);
+  background:
+    radial-gradient(circle at 42% 24%, rgba(255, 229, 174, 0.1), transparent 22%),
+    radial-gradient(circle at 50% 58%, #130d09 0 42%, #2b1b10 72%, #634023 100%);
+  box-shadow:
+    inset 0 22px 30px rgba(0, 0, 0, 0.86),
+    inset 0 -4px 0 rgba(255, 255, 255, 0.07),
+    0 9px 0 rgba(35, 22, 13, 0.58);
+}
+
+.cart {
+  width: 104px;
+  height: 96px;
+  filter:
+    drop-shadow(0 18px 13px rgba(0, 0, 0, 0.5))
+    drop-shadow(0 2px 0 rgba(255, 255, 255, 0.12));
+}
+
+.cart::after {
+  position: absolute;
+  left: 14%;
+  right: 14%;
+  bottom: 4px;
+  z-index: -1;
+  height: 14px;
+  content: "";
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.36);
+  filter: blur(5px);
+}
+
+.catFigure {
+  left: 22px;
+  top: -11px;
+  width: 58px;
+  height: 58px;
+}
+
+.cartBody {
+  left: 10px;
+  top: 44px;
+  width: 84px;
+  height: 40px;
+  background:
+    linear-gradient(115deg, rgba(255, 255, 255, 0.18), transparent 32%),
+    linear-gradient(180deg, #8b5d40, #34231b);
+  box-shadow:
+    inset 0 5px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -8px 10px rgba(0, 0, 0, 0.26);
+}
+
+.cartPanel {
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.18), transparent 34%),
+    linear-gradient(180deg, rgba(255, 214, 148, 0.36), rgba(0, 0, 0, 0.14));
+}
+
+.cartWheel {
+  bottom: 0;
+  width: 18px;
+  height: 18px;
+  background: radial-gradient(circle at 50% 50%, #333 0 24%, #111 26% 100%);
+  border: 3px solid #9da1a0;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.36),
+    0 3px 5px rgba(0, 0, 0, 0.4);
+}
+
+.cartWheelBack {
+  left: 16px;
+}
+
+.cartWheelFront {
+  right: 16px;
+}
+
+.tileGoal::before {
+  box-shadow:
+    0 0 34px rgba(255, 232, 82, 0.92),
+    0 0 72px rgba(255, 190, 44, 0.58);
+}
+
+.goalMarker {
+  filter:
+    drop-shadow(0 0 16px rgba(255, 255, 213, 1))
+    drop-shadow(0 0 34px rgba(255, 219, 68, 0.92));
+}
+
+@media (max-width: 1180px) {
+  .homeHero {
+    grid-template-columns: 1fr;
+  }
+
+  .homePlanet {
+    width: min(90vw, 820px);
+    height: min(90vw, 820px);
+  }
+}
