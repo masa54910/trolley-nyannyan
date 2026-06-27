@@ -12,7 +12,12 @@ export function SettingsModal({ onClose }: SettingsModalProps) {
 
   return (
     <div className="modalBackdrop" role="presentation">
-      <section className="modalPanel settingsPanel" role="dialog" aria-modal="true" aria-labelledby="settings-title">
+      <section
+        className="modalPanel settingsPanel"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="settings-title"
+      >
         <button className="modalClose" onClick={onClose} type="button" aria-label="閉じる">
           ×
         </button>

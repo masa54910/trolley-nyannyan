@@ -9,6 +9,7 @@ export const TILE_POINTS: Record<Exclude<TileKind, "empty">, number> = {
 };
 
 export const BONUS_POINTS = 70;
+export const GOAL_POINTS = 100;
 
 export function getScoreBreakdown(tile: Tile): ScoreBreakdown {
   if (tile.kind === "empty") {
@@ -22,5 +23,13 @@ export function getScoreBreakdown(tile: Tile): ScoreBreakdown {
     base,
     bonus,
     total: base + bonus,
+  };
+}
+
+export function getGoalScoreBreakdown(): ScoreBreakdown {
+  return {
+    base: 0,
+    bonus: GOAL_POINTS,
+    total: GOAL_POINTS,
   };
 }

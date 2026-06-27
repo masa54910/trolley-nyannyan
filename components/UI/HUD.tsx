@@ -1,12 +1,9 @@
-import { GameStatus, Stage } from "@/types/game";
-import { StartButton } from "./StartButton";
+import { Stage } from "@/types/game";
 
 type HUDProps = {
   stage: Stage;
   remainingTime: number;
   score: number;
-  status: GameStatus;
-  onStart: () => void;
   onOpenTutorial: () => void;
   onOpenSettings: () => void;
 };
@@ -15,8 +12,6 @@ export function HUD({
   stage,
   remainingTime,
   score,
-  status,
-  onStart,
   onOpenTutorial,
   onOpenSettings,
 }: HUDProps) {
@@ -43,12 +38,11 @@ export function HUD({
       </div>
 
       <div className="hudActions">
-        <StartButton onStart={onStart} status={status} />
-        <button className="roundIconButton" onClick={onOpenTutorial} type="button">
+        <button className="roundIconButton glassIconButton" onClick={onOpenTutorial} type="button">
           ?
           <span>遊び方</span>
         </button>
-        <button className="roundIconButton" onClick={onOpenSettings} type="button">
+        <button className="roundIconButton glassIconButton" onClick={onOpenSettings} type="button">
           ⚙
           <span>設定</span>
         </button>

@@ -14,7 +14,7 @@ type GameScreenProps = {
   onOpenSettings: () => void;
 };
 
-const CART_STEP_MS = 1500;
+const CART_STEP_MS = 2000;
 const SCORE_POPUP_MS = 920;
 const BONUS_PULSE_MS = 760;
 
@@ -87,16 +87,7 @@ export function GameScreen({
   }
 
   function handleRotateTile(index: number) {
-    if (statusRef.current === "gameOver" || statusRef.current === "cleared") {
-      return;
-    }
-
-    const cartIndex = GameManager.positionToIndex(
-      cartRef.current.position,
-      stageRef.current.size
-    );
-
-    if (statusRef.current === "running" && index === cartIndex) {
+    if (statusRef.current !== "ready") {
       return;
     }
 
@@ -107,7 +98,7 @@ export function GameScreen({
   }
 
   function handleSlideTile(index: number, direction: Direction) {
-    if (statusRef.current === "gameOver" || statusRef.current === "cleared") {
+    if (statusRef.current !== "ready") {
       return;
     }
 
@@ -217,11 +208,9 @@ export function GameScreen({
       <HUD
         onOpenSettings={onOpenSettings}
         onOpenTutorial={onOpenTutorial}
-        onStart={startGame}
         remainingTime={remainingTime}
         score={score}
         stage={stage}
-        status={status}
       />
 
       <div className="stageWorld">
@@ -236,11 +225,13 @@ export function GameScreen({
         <Board
           activeBonusTileIds={activeBonusTileIds}
           cart={cart}
-          disabled={status === "gameOver" || status === "cleared"}
+          disabled={status !== "ready"}
           onRotateTile={handleRotateTile}
           onSlideTile={handleSlideTile}
+          onStart={startGame}
           scorePopups={scorePopups}
           stage={stage}
+          status={status}
         />
       </div>
 
@@ -254,7 +245,7 @@ export function GameScreen({
       </div>
 
       {status === "gameOver" || status === "cleared" ? (
-        <GameOverModal onRetry={resetGame} score={score} status={status} />
+        <GameOverModal onHome={onBackHome} onRetry={resetGame} score={score} status={status} />
       ) : null}
     </section>
   );

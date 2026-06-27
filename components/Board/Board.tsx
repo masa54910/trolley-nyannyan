@@ -1,5 +1,5 @@
-import { PointerEvent, useRef } from "react";
-import { CartState, Direction, ScorePopup, Stage } from "@/types/game";
+import { CSSProperties, PointerEvent, useRef } from "react";
+import { CartState, Direction, GameStatus, ScorePopup, Stage } from "@/types/game";
 import { GameManager } from "@/components/Game/GameManager";
 import { CameraFollow } from "@/components/Camera/CameraFollow";
 import { Cart } from "@/components/Cart/Cart";
@@ -9,8 +9,10 @@ type BoardProps = {
   stage: Stage;
   cart: CartState;
   disabled: boolean;
+  status: GameStatus;
   activeBonusTileIds: string[];
   scorePopups: ScorePopup[];
+  onStart: () => void;
   onRotateTile: (index: number) => void;
   onSlideTile: (index: number, direction: Direction) => void;
 };
@@ -33,13 +35,19 @@ export function Board({
   stage,
   cart,
   disabled,
+  status,
   activeBonusTileIds,
   scorePopups,
+  onStart,
   onRotateTile,
   onSlideTile,
 }: BoardProps) {
   const dragStartRef = useRef<DragStart | null>(null);
   const currentCartIndex = GameManager.positionToIndex(cart.position, stage.size);
+  const cartStartStyle = {
+    left: `${((cart.position.col + 0.72) / stage.size) * 100}%`,
+    top: `${((cart.position.row + 0.5) / stage.size) * 100}%`,
+  } as CSSProperties;
 
   function handlePointerDown(index: number, event: PointerEvent<HTMLButtonElement>) {
     dragStartRef.current = {
@@ -106,6 +114,17 @@ export function Board({
           ))}
 
           <Cart cart={cart} boardSize={stage.size} />
+
+          {status === "ready" ? (
+            <button
+              className="cartStartButton"
+              onClick={onStart}
+              style={cartStartStyle}
+              type="button"
+            >
+              スタート
+            </button>
+          ) : null}
         </div>
       </div>
     </CameraFollow>

@@ -13,7 +13,12 @@ const tutorialItems = [
 export function TutorialModal({ onClose }: TutorialModalProps) {
   return (
     <div className="modalBackdrop" role="presentation">
-      <section className="modalPanel" role="dialog" aria-modal="true" aria-labelledby="tutorial-title">
+      <section
+        className="modalPanel"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="tutorial-title"
+      >
         <button className="modalClose" onClick={onClose} type="button" aria-label="閉じる">
           ×
         </button>

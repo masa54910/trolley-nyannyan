@@ -4,23 +4,35 @@ type GameOverModalProps = {
   status: Extract<GameStatus, "gameOver" | "cleared">;
   score: number;
   onRetry: () => void;
+  onHome: () => void;
 };
 
-export function GameOverModal({ status, score, onRetry }: GameOverModalProps) {
+export function GameOverModal({ status, score, onRetry, onHome }: GameOverModalProps) {
   const cleared = status === "cleared";
 
   return (
     <div className="resultOverlay" role="presentation">
-      <section className={`resultPanel ${cleared ? "resultPanelClear" : ""}`} role="dialog" aria-modal="true">
+      <section
+        className={`resultPanel ${cleared ? "resultPanelClear" : ""}`}
+        role="dialog"
+        aria-modal="true"
+      >
         <div className="resultCat" aria-hidden="true">
-          <span className="resultCatFace">{cleared ? "＾" : "!"}</span>
+          <span className="resultCatFace">{cleared ? "♪" : "!"}</span>
         </div>
-        <h2>{cleared ? "クリア" : "ゲームオーバー"}</h2>
-        <p>{cleared ? "光るゴール地点に到達しました。" : "レールの接続が切れてしまいました。"}</p>
+        <h2>{cleared ? "ステージクリア！" : "ゲームオーバー"}</h2>
+        <p>{cleared ? "ゴールに到達しました" : "レールがつながっていません"}</p>
         <strong>{score.toLocaleString("ja-JP")} pt</strong>
-        <button className="retryButton" onClick={onRetry} type="button">
-          リトライ
-        </button>
+        <div className="resultActions">
+          <button className="retryButton" onClick={onRetry} type="button">
+            リトライ
+          </button>
+          {cleared ? (
+            <button className="ghostButton" onClick={onHome} type="button">
+              ホーム
+            </button>
+          ) : null}
+        </div>
       </section>
     </div>
   );

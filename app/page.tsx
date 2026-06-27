@@ -1,36 +1,15 @@
-"use client";
+import { AppShell, Screen } from "@/components/AppShell";
 
-import { useState } from "react";
-import { GameScreen } from "@/components/Game/GameScreen";
-import { HomeScreen } from "@/components/Home/HomeScreen";
-import { SettingsModal } from "@/components/UI/SettingsModal";
-import { TutorialModal } from "@/components/UI/TutorialModal";
+type PageProps = {
+  searchParams?: Promise<{
+    screen?: string | string[];
+  }>;
+};
 
-type Screen = "home" | "game";
+export default async function Page({ searchParams }: PageProps) {
+  const params = await searchParams;
+  const screenParam = Array.isArray(params?.screen) ? params?.screen[0] : params?.screen;
+  const initialScreen: Screen = screenParam === "game" ? "game" : "home";
 
-export default function Page() {
-  const [screen, setScreen] = useState<Screen>("home");
-  const [tutorialOpen, setTutorialOpen] = useState(false);
-  const [settingsOpen, setSettingsOpen] = useState(false);
-
-  return (
-    <main className="trolleyApp">
-      {screen === "home" ? (
-        <HomeScreen
-          onOpenSettings={() => setSettingsOpen(true)}
-          onOpenTutorial={() => setTutorialOpen(true)}
-          onStart={() => setScreen("game")}
-        />
-      ) : (
-        <GameScreen
-          onBackHome={() => setScreen("home")}
-          onOpenSettings={() => setSettingsOpen(true)}
-          onOpenTutorial={() => setTutorialOpen(true)}
-        />
-      )}
-
-      {tutorialOpen ? <TutorialModal onClose={() => setTutorialOpen(false)} /> : null}
-      {settingsOpen ? <SettingsModal onClose={() => setSettingsOpen(false)} /> : null}
-    </main>
-  );
+  return <AppShell initialScreen={initialScreen} />;
 }

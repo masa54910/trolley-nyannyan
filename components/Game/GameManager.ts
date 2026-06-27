@@ -157,6 +157,16 @@ export class GameManager {
       };
     }
 
+    const tileScore = ScoreManager.getTileScore(currentTile);
+    const goalScore = nextTile.goal ? ScoreManager.getGoalScore() : null;
+    const score = goalScore
+      ? {
+          base: tileScore.base,
+          bonus: tileScore.bonus + goalScore.bonus,
+          total: tileScore.total + goalScore.total,
+        }
+      : tileScore;
+
     return {
       type: "move",
       cart: {
@@ -168,7 +178,7 @@ export class GameManager {
       nextIndex,
       passedTile: currentTile,
       reachedGoal: Boolean(nextTile.goal),
-      score: ScoreManager.getTileScore(currentTile),
+      score,
     };
   }
 }
