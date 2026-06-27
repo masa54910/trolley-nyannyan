@@ -90,13 +90,11 @@ export function HomeScreen({ onStart, onOpenTutorial, onOpenSettings }: HomeScre
       <div className="homeHero">
         <div className="homeCopy">
           <p className="homeEyebrow">猫のトロッコを導くパズルゲーム</p>
-          <h1 className="gameLogo">
-            <span className="logoCatBadge" aria-hidden="true" />
-            <span className="logoLine">トロッコ</span>
-            <span className="logoLine">にゃんにゃん</span>
-          </h1>
-          <p className="homeLead">
+          <p className="homeHeadline">
             小さな惑星で、<span>猫のトロッコ</span>を導こう。
+          </p>
+          <p className="homeDescription">
+            回せるレールパネルをつなぎ、星のゴールまで進路を作るターン式パズル。
           </p>
           <div className="homeActions">
             <form

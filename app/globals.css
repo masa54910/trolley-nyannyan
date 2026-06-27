@@ -3308,3 +3308,375 @@ button:disabled {
     border-radius: 14px;
   }
 }
+
+/* Publish polish: keep the logo in the top-left and give the world room to breathe. */
+.homeTopBar {
+  position: absolute;
+  left: 28px;
+  right: 28px;
+  top: 22px;
+}
+
+.homeHero {
+  position: relative;
+  grid-template-columns: minmax(390px, 0.64fr) minmax(780px, 1.36fr);
+  align-items: center;
+  height: 100vh;
+  padding: 96px 32px 122px;
+}
+
+.homeCopy {
+  z-index: 9;
+  max-width: 570px;
+  padding-top: 0;
+  transform: translateY(-18px);
+}
+
+.gameLogo,
+.logoCatBadge,
+.homeLead {
+  display: none;
+}
+
+.homeEyebrow {
+  min-height: 36px;
+  margin-bottom: 18px;
+  padding: 0 18px;
+  color: #fff8e9;
+  font-size: 1.02rem;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    0 18px 38px rgba(0, 0, 0, 0.28);
+}
+
+.homeHeadline {
+  max-width: 650px;
+  margin: 0;
+  color: #fff7e7;
+  font-size: clamp(2.9rem, 4.65vw, 4.85rem);
+  font-weight: 950;
+  line-height: 1.06;
+  letter-spacing: 0;
+  text-shadow:
+    0 4px 0 rgba(91, 48, 18, 0.8),
+    0 16px 34px rgba(0, 0, 0, 0.56),
+    0 0 24px rgba(255, 204, 92, 0.18);
+}
+
+.homeHeadline span {
+  color: #ffd159;
+}
+
+.homeDescription {
+  max-width: 520px;
+  margin: 20px 0 0;
+  color: rgba(255, 242, 213, 0.9);
+  font-size: clamp(1.05rem, 1.45vw, 1.32rem);
+  font-weight: 800;
+  line-height: 1.75;
+  text-shadow: 0 8px 22px rgba(0, 0, 0, 0.5);
+}
+
+.homeActions {
+  position: relative;
+  z-index: 10;
+  margin-top: 30px;
+}
+
+.homePrimaryButton {
+  min-width: min(40vw, 450px);
+  min-height: 82px;
+  font-size: 1.44rem;
+}
+
+.glassButton {
+  min-height: 54px;
+}
+
+.homeVisual {
+  z-index: 2;
+  padding-right: 0;
+  place-items: center end;
+}
+
+.homePlanet {
+  width: min(72vw, 1030px);
+  height: min(72vw, 1030px);
+  margin-top: 10px;
+  margin-right: -112px;
+  background:
+    radial-gradient(circle at 31% 12%, rgba(255, 255, 230, 0.74), transparent 12%),
+    radial-gradient(circle at 43% 32%, #bf965b 0 31%, #6d4927 54%, #305126 73%, #0e2114 100%);
+  box-shadow:
+    inset -112px -152px 188px rgba(0, 0, 0, 0.72),
+    inset 32px 34px 76px rgba(255, 247, 190, 0.27),
+    inset 0 0 0 3px rgba(255, 235, 174, 0.1),
+    0 58px 118px rgba(0, 0, 0, 0.72),
+    0 0 124px rgba(64, 151, 225, 0.28);
+}
+
+.homePlanet::before {
+  background:
+    radial-gradient(circle at 70% 18%, rgba(105, 166, 84, 0.76) 0 9%, transparent 10%),
+    radial-gradient(circle at 18% 74%, rgba(122, 181, 89, 0.78) 0 10%, transparent 11%),
+    radial-gradient(circle at 78% 68%, rgba(103, 96, 79, 0.72) 0 6%, transparent 7%),
+    linear-gradient(108deg, transparent 0 36%, rgba(255, 235, 164, 0.12) 39% 44%, transparent 47% 100%);
+}
+
+.homePlanet::after {
+  background:
+    radial-gradient(circle at 38% 29%, rgba(255, 255, 255, 0.15), transparent 18%),
+    radial-gradient(circle at 43% 38%, transparent 46%, rgba(0, 8, 14, 0.22) 65%, rgba(0, 4, 8, 0.82) 100%),
+    linear-gradient(122deg, rgba(255, 255, 255, 0.12), transparent 35%);
+}
+
+.planetGlow {
+  inset: -58px;
+  box-shadow:
+    0 0 92px rgba(85, 169, 236, 0.38),
+    0 0 210px rgba(16, 68, 111, 0.34);
+}
+
+.planetRim {
+  inset: 18px;
+  border: 3px solid rgba(248, 218, 151, 0.28);
+  box-shadow:
+    inset -22px -26px 42px rgba(0, 0, 0, 0.24),
+    inset 14px 16px 28px rgba(255, 245, 203, 0.13);
+}
+
+.homePreviewBoard {
+  left: 13.8%;
+  top: 18.5%;
+  grid-template-columns: repeat(5, minmax(70px, 92px));
+  gap: clamp(7px, 0.75vw, 11px);
+  transform: perspective(1050px) rotateX(18deg) rotateZ(-7deg) translateY(-4px);
+}
+
+.previewTile {
+  width: clamp(70px, 5.95vw, 92px);
+  height: clamp(70px, 5.95vw, 92px);
+}
+
+.homeCart {
+  left: 49%;
+  top: 19%;
+  width: clamp(104px, 8.6vw, 136px);
+  height: clamp(100px, 8.3vw, 130px);
+}
+
+.homeGuideGrid {
+  position: absolute;
+  left: 28px;
+  right: 28px;
+  bottom: 16px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.guideCard {
+  grid-template-columns: auto minmax(0, 1fr) minmax(62px, 24%);
+  gap: 10px;
+  min-height: 104px;
+  padding: 14px 14px 13px;
+  border-radius: 14px;
+}
+
+.guideIcon {
+  width: 32px;
+  height: 32px;
+}
+
+.guideCard h2 {
+  margin-bottom: 5px;
+  font-size: 0.96rem;
+}
+
+.guideCard p {
+  font-size: 0.8rem;
+  line-height: 1.55;
+}
+
+.guideThumb {
+  min-height: 70px;
+  border-radius: 11px;
+}
+
+.guideIcon-rail::before {
+  content: "↝";
+}
+
+.guideIcon-cart::before {
+  content: "▶";
+}
+
+.guideIcon-warning::before {
+  content: "!";
+}
+
+.guideIcon-goal::before {
+  content: "★";
+}
+
+.gameScreen {
+  background:
+    radial-gradient(circle at 50% 42%, rgba(86, 157, 225, 0.24), transparent 34%),
+    radial-gradient(circle at 50% 86%, rgba(75, 132, 65, 0.18), transparent 34%),
+    linear-gradient(180deg, #030914 0%, #071827 58%, #050f19 100%);
+}
+
+.hud {
+  grid-template-columns: minmax(330px, 1fr) auto minmax(220px, 1fr);
+  gap: 22px;
+  padding: 18px 32px 0;
+}
+
+.stagePlate,
+.hudMetrics {
+  border-radius: 16px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 18px 44px rgba(0, 0, 0, 0.34);
+}
+
+.stagePlate {
+  min-height: 70px;
+}
+
+.hudMetrics {
+  min-height: 70px;
+}
+
+.hudMetric {
+  min-height: 70px;
+}
+
+.hudActions {
+  gap: 14px;
+}
+
+.stageWorld {
+  height: calc(100vh - 92px);
+  padding: 0 28px 8px;
+}
+
+.planetBackdrop {
+  width: min(88vw, calc(100vh + 36px), 860px);
+  height: min(88vw, calc(100vh + 36px), 860px);
+  transform: translateY(22px) scale(1.06);
+  background:
+    radial-gradient(circle at 32% 13%, rgba(255, 250, 204, 0.52), transparent 14%),
+    radial-gradient(circle at 44% 35%, #a47d4f 0 32%, #674629 54%, #34572a 74%, #102214 100%);
+  box-shadow:
+    inset -112px -148px 176px rgba(0, 0, 0, 0.72),
+    inset 28px 30px 70px rgba(255, 243, 178, 0.22),
+    0 60px 122px rgba(0, 0, 0, 0.66),
+    0 0 92px rgba(66, 151, 226, 0.24);
+}
+
+.planetBackdrop::after {
+  background:
+    radial-gradient(circle at 37% 25%, rgba(255, 255, 255, 0.12), transparent 18%),
+    radial-gradient(circle at 50% 50%, transparent 54%, rgba(0, 8, 12, 0.42) 80%, rgba(0, 5, 9, 0.78) 100%);
+}
+
+.cameraViewport {
+  width: min(80vw, calc(100vh - 130px), 700px);
+}
+
+.boardShell {
+  width: min(78vw, calc(100vh - 148px), 680px);
+  padding: 10px;
+  border-radius: 24px;
+  transform: perspective(1100px) rotateX(7deg) translateY(8px);
+  box-shadow:
+    0 42px 66px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 226, 168, 0.22),
+    0 0 52px rgba(72, 137, 91, 0.16);
+}
+
+.boardGrid {
+  gap: 3px;
+  padding: 4px;
+  border-radius: 20px;
+}
+
+.turnTable {
+  inset: 3px;
+}
+
+.cart {
+  width: 92px;
+  height: 86px;
+  filter: drop-shadow(0 16px 12px rgba(0, 0, 0, 0.48));
+}
+
+.catFigure {
+  left: 20px;
+  top: -9px;
+  width: 52px;
+  height: 52px;
+}
+
+.cartBody {
+  left: 9px;
+  top: 40px;
+  width: 73px;
+  height: 36px;
+}
+
+.cartWheel {
+  width: 16px;
+  height: 16px;
+}
+
+.cartWheelBack {
+  left: 14px;
+}
+
+.cartWheelFront {
+  right: 14px;
+}
+
+.cartStartButton {
+  padding: 11px 18px;
+  font-size: 0.9rem;
+}
+
+.stageFooter {
+  position: absolute;
+  left: 32px;
+  bottom: 14px;
+}
+
+@media (max-width: 1180px) {
+  .homeHero {
+    grid-template-columns: 1fr;
+    padding: 90px 26px 136px;
+  }
+
+  .homeCopy {
+    max-width: 610px;
+    transform: translateY(-30px);
+  }
+
+  .homePlanet {
+    width: min(88vw, 760px);
+    height: min(88vw, 760px);
+    margin-right: -260px;
+  }
+}
+
+@media (max-width: 760px) {
+  .homeHeadline {
+    font-size: clamp(2.4rem, 12vw, 4rem);
+  }
+
+  .homeDescription {
+    font-size: 1rem;
+  }
+
+  .homeGuideGrid {
+    position: relative;
+  }
+}
