@@ -35,6 +35,16 @@ const baseRailPaths: Record<Exclude<TileKind, "empty">, RailPath[]> = {
   ],
 };
 
+export function getRailPathsForTile(
+  kind: Exclude<TileKind, "empty">,
+  rotation: Rotation
+): RailPath[] {
+  return baseRailPaths[kind].map((path) => ({
+    from: rotateDirection(path.from, rotation),
+    to: rotateDirection(path.to, rotation),
+  }));
+}
+
 export function rotateDirection(direction: Direction, rotation: Rotation): Direction {
   const currentIndex = DIRECTIONS.indexOf(direction);
   const steps = rotation / 90;
@@ -47,10 +57,7 @@ export function getRailPaths(tile: Tile): RailPath[] {
     return [];
   }
 
-  return baseRailPaths[tile.kind].map((path) => ({
-    from: rotateDirection(path.from, tile.rotation),
-    to: rotateDirection(path.to, tile.rotation),
-  }));
+  return getRailPathsForTile(tile.kind, tile.rotation);
 }
 
 export function canEnterTile(tile: Tile, entry: Direction): boolean {
@@ -58,7 +65,19 @@ export function canEnterTile(tile: Tile, entry: Direction): boolean {
 }
 
 export function getExitDirection(tile: Tile, entry: Direction): Direction | null {
-  const path = getRailPaths(tile).find(
+  if (tile.kind === "empty") {
+    return null;
+  }
+
+  return getExitDirectionForTile(tile.kind, tile.rotation, entry);
+}
+
+export function getExitDirectionForTile(
+  kind: Exclude<TileKind, "empty">,
+  rotation: Rotation,
+  entry: Direction
+): Direction | null {
+  const path = getRailPathsForTile(kind, rotation).find(
     (candidate) => candidate.from === entry || candidate.to === entry
   );
 

@@ -1,26 +1,38 @@
+import { CSSProperties } from "react";
+import { Rail } from "@/components/Board/Rail";
+import type { TileKind } from "@/types/game";
+
 type HomeScreenProps = {
   onStart: () => void;
   onOpenTutorial: () => void;
   onOpenSettings: () => void;
 };
 
+type PreviewTile = {
+  color?: string;
+  kind?: Exclude<TileKind, "empty">;
+  rotation?: number;
+  empty?: boolean;
+  goal?: boolean;
+};
+
 const previewTiles = [
-  "blue straight",
-  "yellow curve",
-  "green s",
-  "empty",
-  "rose cross",
-  "green curve",
-  "blue s",
-  "yellow straight",
-  "green cross",
-  "empty",
-  "yellow s",
-  "rose straight",
-  "blue curve",
-  "green straight",
-  "yellow goal",
-];
+  { color: "blue", kind: "straight", rotation: 0 },
+  { color: "yellow", kind: "rightCurve", rotation: 90 },
+  { color: "green", kind: "sCurve", rotation: 180 },
+  { empty: true },
+  { color: "rose", kind: "cross", rotation: 0 },
+  { color: "green", kind: "leftCurve", rotation: 180 },
+  { color: "blue", kind: "sCurve", rotation: 0 },
+  { color: "yellow", kind: "straight", rotation: 90 },
+  { color: "green", kind: "cross", rotation: 90 },
+  { empty: true },
+  { color: "yellow", kind: "sCurve", rotation: 270 },
+  { color: "rose", kind: "straight", rotation: 0 },
+  { color: "blue", kind: "rightCurve", rotation: 0 },
+  { color: "green", kind: "straight", rotation: 90 },
+  { color: "yellow", kind: "leftCurve", rotation: 0, goal: true },
+] satisfies PreviewTile[];
 
 const guideCards = [
   {
@@ -121,8 +133,24 @@ export function HomeScreen({ onStart, onOpenTutorial, onOpenSettings }: HomeScre
             <span className="homeGoalCallout">ゴールを目指そう！</span>
             <div className="homePreviewBoard">
               {previewTiles.map((tile, index) => (
-                <span className={`previewTile ${tile}`} key={`${tile}-${index}`}>
-                  {tile.includes("empty") ? null : <span className="previewTurntable" />}
+                <span
+                  className={[
+                    "previewTile",
+                    tile.empty ? "empty" : tile.color,
+                    tile.goal ? "goal" : "",
+                  ]
+                    .filter(Boolean)
+                    .join(" ")}
+                  key={`${tile.color ?? "empty"}-${tile.kind ?? "empty"}-${index}`}
+                >
+                  {tile.empty || !tile.kind ? null : (
+                    <span
+                      className="previewTurntable"
+                      style={{ "--turntable-rotation": `${tile.rotation ?? 0}deg` } as CSSProperties}
+                    >
+                      <Rail kind={tile.kind} />
+                    </span>
+                  )}
                 </span>
               ))}
             </div>

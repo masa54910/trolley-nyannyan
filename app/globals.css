@@ -904,8 +904,8 @@ button:disabled {
   filter: drop-shadow(0 10px 7px rgba(0, 0, 0, 0.42));
   transform: translate(-50%, -52%) rotate(var(--cart-rotation));
   transition:
-    left 1900ms linear,
-    top 1900ms linear,
+    left 900ms linear,
+    top 900ms linear,
     transform 420ms ease;
 }
 
@@ -2249,6 +2249,53 @@ button:disabled {
   bottom: 18px;
 }
 
+.previewTurntable {
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 34% 24%, rgba(255, 255, 255, 0.4), transparent 16%),
+    radial-gradient(circle at 50% 52%, rgba(255, 255, 255, 0.16), rgba(0, 0, 0, 0.05) 64%),
+    rgba(255, 255, 255, 0.14);
+  transform: rotate(var(--turntable-rotation, 0deg));
+}
+
+.previewTurntable .railSvg {
+  inset: 0;
+}
+
+.gameStatus-running .cartBody {
+  animation: cartBodyRunWobble 560ms ease-in-out infinite;
+}
+
+.gameStatus-running .catHeadShape {
+  animation: catRunBob 560ms ease-in-out infinite;
+}
+
+.gameStatus-gameOver .cart {
+  filter:
+    drop-shadow(0 14px 10px rgba(0, 0, 0, 0.45))
+    drop-shadow(0 0 12px rgba(255, 116, 74, 0.7));
+}
+
+.gameStatus-gameOver .catFigure {
+  animation: catStartle 520ms ease-in-out 2;
+}
+
+.gameStatus-cleared .tileGoal::before {
+  inset: 5px;
+  background:
+    radial-gradient(circle, rgba(255, 255, 220, 0.98), rgba(255, 226, 80, 0.5) 42%, transparent 68%);
+  box-shadow:
+    0 0 26px rgba(255, 237, 98, 0.92),
+    0 0 54px rgba(255, 196, 48, 0.55);
+}
+
+.gameStatus-cleared .goalMarker {
+  filter:
+    drop-shadow(0 0 12px rgba(255, 255, 210, 1))
+    drop-shadow(0 0 28px rgba(255, 215, 68, 0.95));
+  animation: goalClearPulse 860ms ease-in-out infinite;
+}
+
 @keyframes primaryButtonPulse {
   0%,
   100% {
@@ -2286,6 +2333,54 @@ button:disabled {
   78% {
     opacity: 0;
     transform: translate3d(160px, -94px, 0) rotate(-34deg);
+  }
+}
+
+@keyframes cartBodyRunWobble {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-2px);
+  }
+}
+
+@keyframes catRunBob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-2px);
+  }
+}
+
+@keyframes catStartle {
+  0%,
+  100% {
+    transform: translateX(0) rotate(calc(var(--cart-rotation) * -1));
+  }
+
+  30% {
+    transform: translateX(-3px) rotate(calc(var(--cart-rotation) * -1 - 5deg));
+  }
+
+  70% {
+    transform: translateX(3px) rotate(calc(var(--cart-rotation) * -1 + 5deg));
+  }
+}
+
+@keyframes goalClearPulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.18);
   }
 }
 

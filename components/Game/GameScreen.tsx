@@ -14,7 +14,7 @@ type GameScreenProps = {
   onOpenSettings: () => void;
 };
 
-const CART_STEP_MS = 2000;
+const CART_STEP_MS = 1000;
 const SCORE_POPUP_MS = 920;
 const BONUS_PULSE_MS = 760;
 
@@ -204,7 +204,7 @@ export function GameScreen({
   }, [status]);
 
   return (
-    <section className="gameScreen">
+    <section className={`gameScreen gameStatus-${status}`}>
       <HUD
         onOpenSettings={onOpenSettings}
         onOpenTutorial={onOpenTutorial}
