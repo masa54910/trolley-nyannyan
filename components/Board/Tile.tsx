@@ -1,4 +1,5 @@
 import { PointerEvent } from "react";
+import { GoalParticles } from "@/components/Effects/GoalParticles";
 import { Tile as TileModel } from "@/types/game";
 import { TurnTable } from "./TurnTable";
 
@@ -62,7 +63,12 @@ export function Tile({
             .filter(Boolean)
             .join(" ")}
         >
-          {tile.goal ? <span className="goalMarker" /> : null}
+          {tile.goal ? (
+            <>
+              <GoalParticles />
+              <span className="goalMarker" />
+            </>
+          ) : null}
           {tile.start ? <span className="startMarker" /> : null}
           <TurnTable tile={tile} activeBonus={activeBonus} />
         </span>

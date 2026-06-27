@@ -1,5 +1,6 @@
 import { CSSProperties } from "react";
 import { Rail } from "@/components/Board/Rail";
+import { SpaceDecor } from "@/components/Effects/SpaceDecor";
 import type { TileKind } from "@/types/game";
 
 type HomeScreenProps = {
@@ -37,36 +38,34 @@ const previewTiles = [
 const guideCards = [
   {
     title: "レールをつなごう",
-    body: "ターンテーブルを回して、先の線路をつないでいこう。",
+    body: "ターンテーブルを回して、猫が進む先の線路をつなげよう。",
     icon: "rail",
+    visual: "rail",
   },
   {
     title: "猫のトロッコが走る",
-    body: "スタートすると、猫のトロッコがゆっくり進みます。",
+    body: "スタートすると、猫のトロッコがレールの上をゆっくり進むよ。",
     icon: "cart",
+    visual: "cart",
   },
   {
     title: "つながらないとゲームオーバー",
-    body: "レールが切れたり、空白マスへ進むと失敗です。",
+    body: "レールが切れたり、空白マスに落ちると失敗です。",
     icon: "warning",
+    visual: "danger",
   },
   {
     title: "ゴールを目指そう",
     body: "光る星パネルまで導けばステージクリアです。",
     icon: "goal",
+    visual: "goal",
   },
 ];
 
 export function HomeScreen({ onStart, onOpenTutorial, onOpenSettings }: HomeScreenProps) {
   return (
     <section className="homeScreen">
-      <div className="homeStars" aria-hidden="true" />
-      <span className="shootingStar shootingStarOne" aria-hidden="true" />
-      <span className="shootingStar shootingStarTwo" aria-hidden="true" />
-      <span className="distantPlanet distantPlanetOne" aria-hidden="true" />
-      <span className="distantPlanet distantPlanetTwo" aria-hidden="true" />
-      <span className="asteroid asteroidOne" aria-hidden="true" />
-      <span className="asteroid asteroidTwo" aria-hidden="true" />
+      <SpaceDecor variant="home" />
 
       <header className="homeTopBar">
         <div className="miniBrand" aria-label="トロッコにゃんにゃん">
@@ -157,6 +156,8 @@ export function HomeScreen({ onStart, onOpenTutorial, onOpenSettings }: HomeScre
             <div className="homeCart" aria-hidden="true">
               <span className="homeCat" />
               <span className="homeCartBody" />
+              <span className="homeCartWheel homeCartWheelBack" />
+              <span className="homeCartWheel homeCartWheelFront" />
             </div>
           </div>
         </div>
@@ -166,10 +167,11 @@ export function HomeScreen({ onStart, onOpenTutorial, onOpenSettings }: HomeScre
         {guideCards.map((card) => (
           <article className="guideCard" key={card.title}>
             <span className={`guideIcon guideIcon-${card.icon}`} aria-hidden="true" />
-            <div>
+            <div className="guideCopy">
               <h2>{card.title}</h2>
               <p>{card.body}</p>
             </div>
+            <span className={`guideThumb guideThumb-${card.visual}`} aria-hidden="true" />
           </article>
         ))}
       </div>

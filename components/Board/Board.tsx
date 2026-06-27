@@ -1,8 +1,8 @@
 import { CSSProperties, PointerEvent, useRef } from "react";
-import { CartState, Direction, GameStatus, ScorePopup, Stage } from "@/types/game";
-import { GameManager } from "@/components/Game/GameManager";
 import { CameraFollow } from "@/components/Camera/CameraFollow";
 import { Cart } from "@/components/Cart/Cart";
+import { GameManager } from "@/components/Game/GameManager";
+import { CartState, Direction, GameStatus, ScorePopup, Stage } from "@/types/game";
 import { Tile } from "./Tile";
 
 type BoardProps = {

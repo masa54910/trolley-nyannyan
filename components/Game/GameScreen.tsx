@@ -1,7 +1,10 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { BONUS_PULSE_MS, CART_STEP_MS, SCORE_POPUP_MS } from "@/components/Animation/gameMotion";
 import { Board } from "@/components/Board/Board";
+import { SpaceDecor } from "@/components/Effects/SpaceDecor";
+import { SoundManager } from "@/components/Sound/SoundManager";
 import { GameOverModal } from "@/components/UI/GameOverModal";
 import { HUD } from "@/components/UI/HUD";
 import { CartState, Direction, GameStatus, ScorePopup, Stage } from "@/types/game";
@@ -13,10 +16,6 @@ type GameScreenProps = {
   onOpenTutorial: () => void;
   onOpenSettings: () => void;
 };
-
-const CART_STEP_MS = 1000;
-const SCORE_POPUP_MS = 920;
-const BONUS_PULSE_MS = 760;
 
 type MoveResult = Extract<ReturnType<typeof GameManager.advanceCart>, { type: "move" }>;
 
@@ -36,6 +35,7 @@ export function GameScreen({
   const stageRef = useRef(stage);
   const cartRef = useRef(cart);
   const statusRef = useRef(status);
+  const soundManagerRef = useRef(SoundManager.getInstance());
 
   useEffect(() => {
     stageRef.current = stage;
@@ -76,6 +76,7 @@ export function GameScreen({
     setScore(0);
     setScorePopups([]);
     setActiveBonusTileIds([]);
+    soundManagerRef.current.play("click");
   }
 
   function startGame() {
@@ -83,6 +84,7 @@ export function GameScreen({
       return;
     }
 
+    soundManagerRef.current.play("run");
     setNextStatus("running");
   }
 
@@ -91,6 +93,7 @@ export function GameScreen({
       return;
     }
 
+    soundManagerRef.current.play("click");
     updateStage((currentStage) => ({
       ...currentStage,
       tiles: GameManager.rotateTile(currentStage.tiles, index),
@@ -109,6 +112,7 @@ export function GameScreen({
       return;
     }
 
+    soundManagerRef.current.play("click");
     updateStage((stageToUpdate) => {
       const result = GameManager.slideTile(
         stageToUpdate.tiles,
@@ -159,6 +163,7 @@ export function GameScreen({
           const startledCart = { ...cartRef.current, mood: "startled" as const };
           cartRef.current = startledCart;
           setCart(startledCart);
+          soundManagerRef.current.play("gameOver");
           setNextStatus("gameOver");
           return 0;
         }
@@ -186,6 +191,7 @@ export function GameScreen({
         const startledCart = { ...cartRef.current, mood: "startled" as const };
         cartRef.current = startledCart;
         setCart(startledCart);
+        soundManagerRef.current.play("gameOver");
         setNextStatus("gameOver");
         return;
       }
@@ -196,6 +202,7 @@ export function GameScreen({
       addScorePopup(result);
 
       if (result.reachedGoal) {
+        soundManagerRef.current.play("clear");
         setNextStatus("cleared");
       }
     }, CART_STEP_MS);
@@ -205,6 +212,7 @@ export function GameScreen({
 
   return (
     <section className={`gameScreen gameStatus-${status}`}>
+      <SpaceDecor variant="game" />
       <HUD
         onOpenSettings={onOpenSettings}
         onOpenTutorial={onOpenTutorial}

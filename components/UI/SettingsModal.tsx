@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { SoundManager } from "@/components/Sound/SoundManager";
 
 type SettingsModalProps = {
   onClose: () => void;
@@ -8,7 +9,12 @@ type SettingsModalProps = {
 
 export function SettingsModal({ onClose }: SettingsModalProps) {
   const [effects, setEffects] = useState(true);
-  const [sound, setSound] = useState(false);
+  const [sound, setSound] = useState(() => SoundManager.getInstance().isEnabled());
+
+  function handleSoundChange(enabled: boolean) {
+    SoundManager.getInstance().setEnabled(enabled);
+    setSound(enabled);
+  }
 
   return (
     <div className="modalBackdrop" role="presentation">
@@ -23,12 +29,12 @@ export function SettingsModal({ onClose }: SettingsModalProps) {
         </button>
         <h2 id="settings-title">設定</h2>
         <label className="settingRow">
-          <span>発光演出</span>
+          <span>演出</span>
           <input checked={effects} onChange={(event) => setEffects(event.target.checked)} type="checkbox" />
         </label>
         <label className="settingRow">
           <span>サウンド</span>
-          <input checked={sound} onChange={(event) => setSound(event.target.checked)} type="checkbox" />
+          <input checked={sound} onChange={(event) => handleSoundChange(event.target.checked)} type="checkbox" />
         </label>
       </section>
     </div>
