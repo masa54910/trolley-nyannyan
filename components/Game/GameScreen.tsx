@@ -10,6 +10,7 @@ import { HUD } from "@/components/UI/HUD";
 import { CartState, Direction, GameStatus, ScorePopup, Stage } from "@/types/game";
 import { GameManager } from "./GameManager";
 import { StageManager } from "./StageManager";
+import { TileLegendPanel } from "./TileLegendPanel";
 
 type GameScreenProps = {
   onBackHome: () => void;
@@ -220,6 +221,7 @@ export function GameScreen({
         score={score}
         stage={stage}
       />
+      <TileLegendPanel />
 
       <div className="stageWorld">
         <div className="planetBackdrop" aria-hidden="true">
@@ -242,6 +244,10 @@ export function GameScreen({
           status={status}
         />
       </div>
+
+      <button className="stageMenuButton" onClick={onBackHome} type="button" aria-label="メニュー">
+        ≡
+      </button>
 
       <div className="stageFooter">
         <button className="ghostButton" onClick={onBackHome} type="button">

@@ -8,6 +8,15 @@ type HUDProps = {
   onOpenSettings: () => void;
 };
 
+function formatTime(totalSeconds: number) {
+  const minutes = Math.floor(totalSeconds / 60)
+    .toString()
+    .padStart(2, "0");
+  const seconds = (totalSeconds % 60).toString().padStart(2, "0");
+
+  return `${minutes}:${seconds}`;
+}
+
 export function HUD({
   stage,
   remainingTime,
@@ -16,28 +25,32 @@ export function HUD({
   onOpenSettings,
 }: HUDProps) {
   return (
-    <header className="hud">
-      <div className="stagePlate">
-        <span className="stageLabel">ステージ</span>
+    <>
+      <section className="stageInfoPanel" aria-label="ステージ情報">
+        <span className="stageLabel">ステージ 12</span>
         <strong>{stage.name}</strong>
-      </div>
+      </section>
 
-      <div className="hudMetrics" aria-live="polite">
-        <div className="hudMetric">
-          <span className="hudIcon timerIcon" />
-          <span>{remainingTime.toString().padStart(2, "0")}秒</span>
+      <header className="hud" aria-label="ステージHUD">
+        <div className="hudMetrics" aria-live="polite">
+          <div className="hudMetric hudMetricTimer">
+            <span className="hudIcon timerIcon" />
+            <span>{formatTime(remainingTime)}</span>
+          </div>
+          <div className="hudDivider" aria-hidden="true" />
+          <div className="hudMetric">
+            <small>スコア</small>
+            <span>{score.toLocaleString("ja-JP")}</span>
+          </div>
+          <div className="hudDivider" aria-hidden="true" />
+          <div className="hudMetric">
+            <small>目標スコア</small>
+            <span>{stage.targetScore.toLocaleString("ja-JP")}</span>
+          </div>
         </div>
-        <div className="hudMetric">
-          <small>スコア</small>
-          <span>{score.toLocaleString("ja-JP")}</span>
-        </div>
-        <div className="hudMetric">
-          <small>目標</small>
-          <span>{stage.targetScore.toLocaleString("ja-JP")}</span>
-        </div>
-      </div>
+      </header>
 
-      <div className="hudActions">
+      <div className="hudActions" aria-label="補助ボタン">
         <button className="roundIconButton glassIconButton" onClick={onOpenTutorial} type="button">
           ?
           <span>遊び方</span>
@@ -47,6 +60,6 @@ export function HUD({
           <span>設定</span>
         </button>
       </div>
-    </header>
+    </>
   );
 }

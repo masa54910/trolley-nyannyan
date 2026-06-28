@@ -18,10 +18,10 @@ export function GameOverModal({ status, score, onRetry, onHome }: GameOverModalP
         aria-modal="true"
       >
         <div className="resultCat" aria-hidden="true">
-          <span className="resultCatFace">{cleared ? "♪" : "!"}</span>
+          <span className="resultCatFace">{cleared ? "★" : "!"}</span>
         </div>
         <h2>{cleared ? "ステージクリア！" : "ゲームオーバー"}</h2>
-        <p>{cleared ? "ゴールに到着しました" : "レールがつながっていません"}</p>
+        <p>{cleared ? "光る星のゴールに到達しました。" : "レールがつながっていません"}</p>
         <strong>{score.toLocaleString("ja-JP")} pt</strong>
         <div className="resultActions">
           <button className="retryButton" onClick={onRetry} type="button">

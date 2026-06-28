@@ -13,7 +13,7 @@ export type TileKind =
   | "cross"
   | "empty";
 
-export type TileColor = "blue" | "green" | "yellow" | "rose";
+export type TileColor = "blue" | "green" | "yellow" | "brown";
 
 export type Position = {
   row: number;

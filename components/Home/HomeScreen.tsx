@@ -1,7 +1,5 @@
-import { CSSProperties } from "react";
-import { Rail } from "@/components/Board/Rail";
+import Image from "next/image";
 import { SpaceDecor } from "@/components/Effects/SpaceDecor";
-import type { TileKind } from "@/types/game";
 
 type HomeScreenProps = {
   onStart: () => void;
@@ -9,97 +7,76 @@ type HomeScreenProps = {
   onOpenSettings: () => void;
 };
 
-type PreviewTile = {
-  color?: string;
-  kind?: Exclude<TileKind, "empty">;
-  rotation?: number;
-  empty?: boolean;
-  goal?: boolean;
-};
-
-const previewTiles = [
-  { color: "blue", kind: "straight", rotation: 0 },
-  { color: "yellow", kind: "rightCurve", rotation: 90 },
-  { color: "green", kind: "sCurve", rotation: 180 },
-  { empty: true },
-  { color: "rose", kind: "cross", rotation: 0 },
-  { color: "green", kind: "leftCurve", rotation: 180 },
-  { color: "blue", kind: "sCurve", rotation: 0 },
-  { color: "yellow", kind: "straight", rotation: 90 },
-  { color: "green", kind: "cross", rotation: 90 },
-  { empty: true },
-  { color: "yellow", kind: "sCurve", rotation: 270 },
-  { color: "rose", kind: "straight", rotation: 0 },
-  { color: "blue", kind: "rightCurve", rotation: 0 },
-  { color: "green", kind: "straight", rotation: 90 },
-  { color: "yellow", kind: "leftCurve", rotation: 0, goal: true },
-] satisfies PreviewTile[];
-
 const guideCards = [
   {
     title: "レールをつなごう",
-    body: "ターンテーブルを回して、猫が進む先の線路をつなげよう。",
+    body: "ターンテーブルを回して、ゴールまでの道をつくろう。",
+    image: "/assets/lp-card-rail-v1.png",
     icon: "rail",
-    visual: "rail",
   },
   {
-    title: "猫のトロッコが走る",
-    body: "スタートすると、猫のトロッコがレールの上をゆっくり進むよ。",
+    title: "猫のトロッコが走る！",
+    body: "スタートすると、猫のトロッコがレールの上を進みます。",
+    image: "/assets/lp-card-cart-v1.png",
     icon: "cart",
-    visual: "cart",
   },
   {
     title: "つながらないとゲームオーバー",
     body: "レールが切れたり、空白マスに落ちると失敗です。",
+    image: "/assets/lp-card-danger-v1.png",
     icon: "warning",
-    visual: "danger",
   },
   {
     title: "ゴールを目指そう",
-    body: "光る星パネルまで導けばステージクリアです。",
+    body: "光る星までレールをつないで、ステージクリア！",
+    image: "/assets/lp-card-goal-v1.png",
     icon: "goal",
-    visual: "goal",
   },
 ];
 
 export function HomeScreen({ onStart, onOpenTutorial, onOpenSettings }: HomeScreenProps) {
   return (
-    <section className="homeScreen">
+    <section className="homeScreen lpMasterScreen">
       <SpaceDecor variant="home" />
 
-      <header className="homeTopBar">
-        <div className="miniBrand" aria-label="トロッコにゃんにゃん">
-          <span className="miniCatIcon" aria-hidden="true" />
+      <header className="lpMasterTopBar" aria-label="ホームナビゲーション">
+        <div className="lpMasterLogo" aria-label="トロッコにゃんにゃん">
+          <span className="lpMasterLogoCat" aria-hidden="true" />
           <span>
             <strong>トロッコにゃんにゃん</strong>
             <small>TROLLEY NYANNYAN</small>
           </span>
         </div>
-        <div className="homeTopActions">
-          <button className="roundIconButton glassIconButton" onClick={onOpenTutorial} type="button">
-            ?
-            <span>遊び方</span>
+        <div className="lpMasterTopActions">
+          <button className="lpMasterTopButton" onClick={onOpenTutorial} type="button">
+            <span className="lpMasterQuestionIcon" aria-hidden="true">
+              ?
+            </span>
+            遊び方
           </button>
-          <button className="roundIconButton glassIconButton" onClick={onOpenSettings} type="button">
-            ⚙
-            <span>設定</span>
+          <button className="lpMasterTopButton" onClick={onOpenSettings} type="button">
+            <span className="lpMasterGearIcon" aria-hidden="true" />
+            設定
           </button>
         </div>
       </header>
 
-      <div className="homeHero">
-        <div className="homeCopy">
-          <p className="homeEyebrow">猫のトロッコを導くパズルゲーム</p>
-          <p className="homeHeadline">
-            小さな惑星で、<span>猫のトロッコ</span>を導こう。
+      <main className="lpMasterHero" aria-label="トロッコにゃんにゃん LP">
+        <section className="lpMasterCopy" aria-label="ゲーム紹介">
+          <p className="lpMasterKicker">猫のトロッコを導くパズルゲーム</p>
+          <h1 className="lpMasterTitle">
+            <span>トロッコ</span>
+            <span>にゃんにゃん</span>
+          </h1>
+          <p className="lpMasterLead">小さな惑星で、猫のトロッコを導こう。</p>
+          <p className="lpMasterDescription">
+            回せるレールパネルをつなぎ、光る星のゴールへ。木製玩具のような小さな惑星で遊ぶ、かわいいトロッコ誘導パズルです。
           </p>
-          <p className="homeDescription">
-            回せるレールパネルをつなぎ、星のゴールまで進路を作るターン式パズル。
-          </p>
-          <div className="homeActions">
+
+          <div className="lpMasterActions">
             <form
               action="/"
-              className="homeStartForm"
+              className="lpMasterStartForm"
               method="get"
               onSubmit={(event) => {
                 event.preventDefault();
@@ -107,72 +84,64 @@ export function HomeScreen({ onStart, onOpenTutorial, onOpenSettings }: HomeScre
               }}
             >
               <input name="screen" type="hidden" value="game" />
-              <button className="primaryButton homePrimaryButton" type="submit">
-                <span className="playIcon" aria-hidden="true" />
+              <button className="lpMasterStartButton" type="submit">
+                <span className="lpMasterPlayIcon" aria-hidden="true" />
                 ゲームを始める
               </button>
             </form>
-            <button className="secondaryButton glassButton" onClick={onOpenTutorial} type="button">
-              <span className="bookIcon" aria-hidden="true" />
-              遊び方
-            </button>
-            <button className="secondaryButton glassButton" onClick={onOpenSettings} type="button">
-              <span className="gearIcon" aria-hidden="true" />
-              設定
-            </button>
-          </div>
-        </div>
-
-        <div className="homeVisual" aria-label="惑星とレールパネルのメインビジュアル">
-          <div className="homePlanet">
-            <span className="planetGlow" />
-            <span className="planetRim" />
-            <span className="homeGoalCallout">ゴールを目指そう！</span>
-            <div className="homePreviewBoard">
-              {previewTiles.map((tile, index) => (
-                <span
-                  className={[
-                    "previewTile",
-                    tile.empty ? "empty" : tile.color,
-                    tile.goal ? "goal" : "",
-                  ]
-                    .filter(Boolean)
-                    .join(" ")}
-                  key={`${tile.color ?? "empty"}-${tile.kind ?? "empty"}-${index}`}
-                >
-                  {tile.empty || !tile.kind ? null : (
-                    <span
-                      className="previewTurntable"
-                      style={{ "--turntable-rotation": `${tile.rotation ?? 0}deg` } as CSSProperties}
-                    >
-                      <Rail kind={tile.kind} />
-                    </span>
-                  )}
-                </span>
-              ))}
-            </div>
-            <div className="homeCart" aria-hidden="true">
-              <span className="homeCat" />
-              <span className="homeCartBody" />
-              <span className="homeCartWheel homeCartWheelBack" />
-              <span className="homeCartWheel homeCartWheelFront" />
+            <div className="lpMasterSubActions">
+              <button className="lpMasterSubButton" onClick={onOpenTutorial} type="button">
+                <span className="lpMasterBookIcon" aria-hidden="true" />
+                遊び方
+              </button>
+              <button className="lpMasterSubButton" onClick={onOpenSettings} type="button">
+                <span className="lpMasterGearIcon" aria-hidden="true" />
+                設定
+              </button>
             </div>
           </div>
-        </div>
-      </div>
+        </section>
 
-      <div className="homeGuideGrid" aria-label="ゲーム説明">
+        <section className="lpMasterVisual" aria-label="惑星と猫トロッコのキービジュアル">
+          <div className="lpMasterVisualHalo" aria-hidden="true" />
+          <div className="lpMasterKeyFrame">
+            <Image
+              alt="猫のトロッコが小さな惑星のレールパネルを走るキービジュアル"
+              className="lpMasterKeyImage"
+              draggable={false}
+              height={302}
+              priority
+              src="/assets/lp-key-visual-v1.png"
+              width={388}
+            />
+            <span className="lpMasterPlanetShadow" aria-hidden="true" />
+            <span className="lpMasterGoalGlow" aria-hidden="true" />
+            <span className="lpMasterCallout" aria-hidden="true">
+              ゴールを目指そう！
+            </span>
+          </div>
+        </section>
+      </main>
+
+      <section className="lpMasterCards" aria-label="ゲーム説明">
         {guideCards.map((card) => (
-          <article className="guideCard" key={card.title}>
-            <span className={`guideIcon guideIcon-${card.icon}`} aria-hidden="true" />
-            <div className="guideCopy">
+          <article className="lpMasterCard" key={card.title}>
+            <span className={`lpMasterCardIcon lpMasterCardIcon-${card.icon}`} aria-hidden="true" />
+            <div className="lpMasterCardText">
               <h2>{card.title}</h2>
               <p>{card.body}</p>
             </div>
-            <span className={`guideThumb guideThumb-${card.visual}`} aria-hidden="true" />
+            <Image
+              alt=""
+              className="lpMasterCardImage"
+              draggable={false}
+              height={80}
+              src={card.image}
+              width={160}
+            />
           </article>
         ))}
-      </div>
+      </section>
     </section>
   );
 }
